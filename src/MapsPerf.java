@@ -1,13 +1,36 @@
 import java.util.HashMap;
 
 public class MapsPerf {
-    static {
+    public static void main(String args[]) {
+        long avgRunningTime = 0;
         long startTime = System.nanoTime();
-        HashMap hashMap = new HashMap();
-        for (int i = 0; i < 10000; i++) {
-            hashMap.put(i, i);
+        for (int j = 0; j < 1000; j++) {
+            HashMap hashMap = new HashMap();
+            for (int i = 0; i < 10000; i++) {
+                hashMap.put(i, i);
+            }
         }
         long endTime = System.nanoTime();
-        System.out.println(endTime - startTime);
+        avgRunningTime += (endTime - startTime) / 1000;
+        System.out.println("Average running time is " + avgRunningTime + " nano secs");
+        System.out.println("Average running time is " + avgRunningTime/1000 + " micro secs");
+        System.out.println("Average running time is " + avgRunningTime/1000000.0 + " milli secs");
+
+        long avgRunningTimeStaticBlock = 0;
+        long startTimeStaticBlock = System.nanoTime();
+        for (int j = 0; j < 1000; j++) {
+            HashMap hashMap = new HashMap() {
+                {
+                    for (int i = 0; i < 10000; i++) {
+                        this.put(i, i);
+                    }
+                }
+            };
+        }
+        long endTimeStaticBlock = System.nanoTime();
+        avgRunningTimeStaticBlock += (endTimeStaticBlock - startTimeStaticBlock) / 1000;
+        System.out.println("Average running time is " + avgRunningTimeStaticBlock + " nano secs");
+        System.out.println("Average running time is " + avgRunningTimeStaticBlock/1000 + " micro secs");
+        System.out.println("Average running time is " + avgRunningTimeStaticBlock/1000000.0 + " milli secs");
     }
 }
