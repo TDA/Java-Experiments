@@ -34,3 +34,7 @@ public class MapsPerf {
         System.out.println("Average running time is " + avgRunningTimeStaticBlock/1000000.0 + " milli secs");
     }
 }
+
+// Surprisingly using the static block is faster on most occasions  compared to the hashmap plus for loop
+// this is surprising because static block creates new anonymous inner class every time it executes
+// while the for loop does not do so.  not sure why this behavior is exhibited.
